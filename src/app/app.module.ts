@@ -17,11 +17,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { ProductoStore } from './shared/store/producto.store';
+import { CarritoComponent } from './shared/components/carrito/carrito.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { Producto } from '../../model/producto';
 export class HeaderComponent {
 
   productos: Producto[] = [];
+  mostrarCarrito = false;
 
   constructor(private readonly store: ProductoStore) {
     this._getProductoStore();
@@ -19,5 +20,13 @@ export class HeaderComponent {
     this.store.getProductos$.subscribe((res) => {
       if (res) this.productos = res;
     });
+  }
+
+  toggleCarrito() {
+    this.mostrarCarrito = !this.mostrarCarrito;
+  }
+
+  eliminarDelCarrito(index: number) {
+    
   }
 }

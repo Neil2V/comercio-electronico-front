@@ -7,9 +7,14 @@
     <button mat-button routerLink="/pedidos" class="ml-4">
       Pedidos
     </button>
-    <button mat-icon-button routerLink="/carrito" class="mr-4">
-        <mat-icon>shopping_cart</mat-icon>
-        <span class="cart-count">{{ productos.length }}</span>
-    </button>
+    <div class="carrito-dropdown">
+        <button mat-icon-button (click)="toggleCarrito()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span class="cart-count">{{ productos.length }}</span>
+        </button>
+        <div *ngIf="mostrarCarrito" class="carrito-content">
+            <app-carrito [productos]="productos"></app-carrito>
+        </div>
+      </div>
   </mat-toolbar>
   

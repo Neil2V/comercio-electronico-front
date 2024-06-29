@@ -4,6 +4,7 @@ export interface Producto {
     precio?: number;
     descripcion?: string;
     categoria?: string;
+    cantidad?: number;
     stock?: number;
     imagen?: string;
     fchRegistro?: Date;

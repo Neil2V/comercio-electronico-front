@@ -13,8 +13,8 @@ export class ProductoCardComponent {
 
   constructor(private readonly store: ProductoStore  ) {}
 
-  agregarAlCarrito(producto: Producto): void {
-    this.store.setProductos([producto]); // Puedes ajustar según tu lógica de negocio
+  addToCart(producto: Producto): void {
+    this.store.setProductos([producto]);
+    this
   }
-
 }

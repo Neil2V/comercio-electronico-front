@@ -1,0 +1,20 @@
+<div class="carrito-container">
+    <ng-container *ngIf="listProductos.length > 0; else noProductos">
+      <div class="carrito-item" *ngFor="let producto of listProductos; let i = index">
+        <div class="carrito-info">
+          <div class="carrito-nombre">{{ producto.nombre }}</div>
+          <div class="carrito-precio">{{ producto.precio | currency }}</div>
+          <div class="carrito-cantidad">Cantidad: {{ producto.cantidad }}</div>
+        </div>
+        <button mat-icon-button class="carrito-delete" (click)="eliminarDelCarrito(i)">
+          <mat-icon class="mat-24">delete</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #noProductos>
+      <div class="carrito-vacio">
+        <p>No hay productos en el carrito.</p>
+      </div>
+    </ng-template>
+  </div>
+  

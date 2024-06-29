@@ -17,15 +17,39 @@ export class ProductoStore extends ComponentStore<ProductoState> {
 
     constructor(private readonly productosService: ProductosService) {
 		super(initialState);
+        this.loadLocalStorage();
 	}
 
     readonly getProductos$: Observable<Producto[] | null> = this.select(state => state.productosCart);
-    readonly setProductos1 = this.updater((state, productosCart: Producto[]) => ({ ...state, productosCart}));
-    readonly setProductos = this.updater((state, productosCart: Producto[] | null) => ({
-        ...state,
-        productosCart: [
-          ...(state.productosCart || []),
-          ...(productosCart || [])
-        ]
-      }));
+    readonly deleteProductos = this.updater((state, productosCart: Producto[] | null) => {
+        const newState = {
+            ...state,
+            productosCart
+        }
+        this.saveLocalStorage(productosCart);
+        return newState;
+    })
+    readonly setProductos = this.updater((state, productosCart: Producto[] | null) => {
+        const newState = {
+            ...state,
+            productosCart: [
+                ...(state.productosCart || []),
+                ...(productosCart || [])
+            ]
+        };
+        this.saveLocalStorage(productosCart);
+        return newState;
+    });
+
+    private saveLocalStorage(productosCart: Producto[] | null): void {
+        localStorage.setItem('productosCart', JSON.stringify(productosCart));
+    }
+
+    private loadLocalStorage(): void {
+        const productosCartString = localStorage.getItem('productosCart');
+        if (productosCartString) {
+            const productosCart = JSON.parse(productosCartString);
+            this.setState({ productosCart });
+        }
+    }
 }

@@ -1,5 +1,5 @@
 .producto-card {
-    max-width: 400px; /* Ajusta el ancho máximo según tus necesidades */
+    max-width: 400px;
     margin: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -14,7 +14,7 @@
 .logo-container img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* Ajusta el tamaño de la imagen del avatar */
+    object-fit: contain;
 }
 
 .producto-info {
