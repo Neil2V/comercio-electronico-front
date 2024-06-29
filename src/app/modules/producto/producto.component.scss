@@ -1,0 +1,22 @@
+:host {
+	height: 100%;
+	margin: 0;
+  padding: 0;
+}
+
+.uppercase-input {
+    text-transform: uppercase;
+  }
+
+  ::ng-deep .mat-tab-label {
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-grow: 1 !important;
+  }
+  
+  ::ng-deep .mat-tab-label-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
