@@ -19,7 +19,6 @@ export class ProductoComponent implements OnInit {
   }
 
   constructor(
-    private readonly _activatedRoute: ActivatedRoute,
     private readonly fb: FormBuilder,
     private readonly productosService: ProductosService
   ) {

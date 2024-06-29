@@ -1,7 +1,19 @@
-<div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ producto.nombre }}</h5>
-      <p class="card-text">{{ producto.precio }}</p>
-      <!-- Agrega aquí el resto de la información del producto -->
-    </div>
-  </div>
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="logo-container">
+            <img [src]="producto.imagen ?  'assets/img/' + producto.imagen : 'assets/img/image_not_found.png'" alt="Logo">
+        </div>
+        <mat-card-title> {{producto.nombre}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-12">
+                <div class="container-mat-body">
+                    <div class="company-name">{{producto.precio}}</div>
+                    <div class="location">{{producto.precio}}</div>
+                    <div class="location mt-4">{{producto.precio}}</div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
