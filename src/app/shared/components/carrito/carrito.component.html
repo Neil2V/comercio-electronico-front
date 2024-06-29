@@ -7,19 +7,12 @@
                         <div class="carrito-nombre">{{ producto.nombre }}</div>
                         <div class="carrito-precio">Precio: {{ producto.precio | currency }}</div>
                     </div>
-                    <div class="col-5" style="display: flex; align-items: center;">
-                        <button mat-icon-button (click)="decrementProducto(producto)" class="icon-color mr-4" [disabled]="producto.cantidad === 1">
-                            <mat-icon>remove_circle_outline</mat-icon>
-                        </button>
-                        <div class="carrito-cantidad">
+                    <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+                        <div class="carrito-cantidad text-center">
                             {{ producto.cantidad }}
                         </div>
-                        <button mat-icon-button (click)="addProducto(producto)" class="icon-color ml-4">
-                            <mat-icon>add_circle_outline</mat-icon>
-                        </button>
-                        
-                      </div>
-                      <div class="col-3 d-flex justify-content-center">
+                    </div>
+                      <div class="col-4 d-flex justify-content-center">
                         <button mat-icon-button class="carrito-delete" (click)="eliminarDelCarrito(i)">
                             <mat-icon >delete</mat-icon>
                         </button>

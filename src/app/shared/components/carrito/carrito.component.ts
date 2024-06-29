@@ -29,10 +29,12 @@ export class CarritoComponent {
   }
 
   addProducto(producto: Producto): void {
-    
+    if (producto.cantidad) {
+      //producto.cantidad+=1;
+    }
   }
 
   decrementProducto(producto: Producto): void {
-   
+    if (producto.cantidad) producto.cantidad-=1;
   }
 }
