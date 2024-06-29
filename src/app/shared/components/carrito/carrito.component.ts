@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Producto } from '../../model/producto';
 import { ProductoStore } from '../../store/producto.store';
 
@@ -17,6 +17,10 @@ export class CarritoComponent {
 
   listProductos: Producto[] = [];
 
+  @Output() emitAñadirProducto = new EventEmitter<Producto>();
+  @Output() emitQuitarProducto = new EventEmitter<Producto>();
+
+
   constructor(private readonly store: ProductoStore) {
     
   }
@@ -29,12 +33,14 @@ export class CarritoComponent {
   }
 
   addProducto(producto: Producto): void {
-    if (producto.cantidad) {
-      //producto.cantidad+=1;
-    }
+    this.emitAñadirProducto.emit(producto);
   }
 
   decrementProducto(producto: Producto): void {
-    if (producto.cantidad) producto.cantidad-=1;
+    this.emitQuitarProducto.emit(producto);
+  }
+
+  crearPedido(): void {
+    console.log('crear pedido');
   }
 }

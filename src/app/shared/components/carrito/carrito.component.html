@@ -12,13 +12,18 @@
                             {{ producto.cantidad }}
                         </div>
                     </div>
-                      <div class="col-4 d-flex justify-content-center">
+                    <div class="col-4 d-flex justify-content-center">
                         <button mat-icon-button class="carrito-delete" (click)="eliminarDelCarrito(i)">
-                            <mat-icon >delete</mat-icon>
+                            <mat-icon>delete</mat-icon>
                         </button>
-                    </div>       
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="carrito-crear-pedido">
+            <button mat-raised-button color="primary" (click)="crearPedido()">
+                Crear Pedido
+            </button>
         </div>
     </ng-container>
     <ng-template #noProductos>

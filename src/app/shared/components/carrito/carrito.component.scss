@@ -52,3 +52,17 @@
   .mat-icon {
     font-size: 25px;
   }
+
+  .carrito-crear-pedido {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  button.mat-raised-button {
+    background-color: #007bff;
+    color: #fff;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }

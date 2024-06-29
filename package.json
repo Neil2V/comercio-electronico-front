@@ -28,6 +28,8 @@
     "bootstrap": "^4.5.3",
     "jquery": "^3.6.0",
     "material-design-icons": "^3.0.1",
+    "ag-grid-angular": "^26.2.0",
+    "ag-grid-community": "^26.2.1",
     "rxjs": "^7.4.0",
     "toastr": "^2.1.4",
     "tslib": "^2.3.0",
