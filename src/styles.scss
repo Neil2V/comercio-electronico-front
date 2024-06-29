@@ -79,5 +79,18 @@ $bv-palette-accent: mat-palette($bv-orange);
 
 $bv-theme: mat-light-theme($bv-palette-primary, $bv-palette-accent);
 
+/*$custom-theme: mat.define-light-theme((
+  // Customize your theme colors here
+  color: (
+    primary: 'your-primary-color',
+    accent: 'your-accent-color',
+    warn: 'your-warn-color',
+  ),
+));*/
+
 // include the custom theme object into the angular material theme
 @include angular-material-theme($bv-theme);
+
+.mat-icon {
+    color: #000; // Cambia a tu color deseado
+}

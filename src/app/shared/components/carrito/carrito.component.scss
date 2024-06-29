@@ -31,10 +31,11 @@
   
   .carrito-cantidad {
     color: #888;
-    font-size: 12px;
+    font-size: 28px;
   }
   
   .carrito-delete {
+    font-weight: bold;    
     color: #e53935;
   }
   
@@ -44,6 +45,10 @@
     color: #777;
   }
   
-  .icon-delete {
-    font-size: 60px;
+  .icon-color {
+    color: #000;
+  }
+
+  .mat-icon {
+    font-size: 25px;
   }

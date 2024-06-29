@@ -14,8 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
 import { ProductoStore } from './shared/store/producto.store';
 import { CarritoComponent } from './shared/components/carrito/carrito.component';
 

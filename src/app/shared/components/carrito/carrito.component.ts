@@ -27,4 +27,12 @@ export class CarritoComponent {
       this.store.deleteProductos(this.listProductos);
     }
   }
+
+  addProducto(producto: Producto): void {
+    
+  }
+
+  decrementProducto(producto: Producto): void {
+   
+  }
 }

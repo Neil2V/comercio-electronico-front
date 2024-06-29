@@ -1,20 +1,36 @@
 <div class="carrito-container">
     <ng-container *ngIf="listProductos.length > 0; else noProductos">
-      <div class="carrito-item" *ngFor="let producto of listProductos; let i = index">
-        <div class="carrito-info">
-          <div class="carrito-nombre">{{ producto.nombre }}</div>
-          <div class="carrito-precio">{{ producto.precio | currency }}</div>
-          <div class="carrito-cantidad">Cantidad: {{ producto.cantidad }}</div>
+        <div class="carrito-item" *ngFor="let producto of listProductos; let i = index">
+            <div class="carrito-info">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="carrito-nombre">{{ producto.nombre }}</div>
+                        <div class="carrito-precio">Precio: {{ producto.precio | currency }}</div>
+                    </div>
+                    <div class="col-5" style="display: flex; align-items: center;">
+                        <button mat-icon-button (click)="decrementProducto(producto)" class="icon-color mr-4" [disabled]="producto.cantidad === 1">
+                            <mat-icon>remove_circle_outline</mat-icon>
+                        </button>
+                        <div class="carrito-cantidad">
+                            {{ producto.cantidad }}
+                        </div>
+                        <button mat-icon-button (click)="addProducto(producto)" class="icon-color ml-4">
+                            <mat-icon>add_circle_outline</mat-icon>
+                        </button>
+                        
+                      </div>
+                      <div class="col-3 d-flex justify-content-center">
+                        <button mat-icon-button class="carrito-delete" (click)="eliminarDelCarrito(i)">
+                            <mat-icon >delete</mat-icon>
+                        </button>
+                    </div>       
+                </div>
+            </div>
         </div>
-        <button mat-icon-button class="carrito-delete" (click)="eliminarDelCarrito(i)">
-          <mat-icon class="mat-24">delete</mat-icon>
-        </button>
-      </div>
     </ng-container>
     <ng-template #noProductos>
-      <div class="carrito-vacio">
-        <p>No hay productos en el carrito.</p>
-      </div>
+        <div class="carrito-vacio">
+            <p>No hay productos en el carrito.</p>
+        </div>
     </ng-template>
-  </div>
-  
+</div>
