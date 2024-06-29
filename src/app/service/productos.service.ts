@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Producto } from '../shared/producto';
 import { Observable, of } from 'rxjs';
+import { Producto } from '../shared/model/producto';
 
 @Injectable({
   providedIn: 'root'

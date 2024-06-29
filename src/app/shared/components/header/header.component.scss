@@ -1,0 +1,39 @@
+.header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .cart-count {
+    background-color: red;
+    color: white;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    padding: 2px 6px;
+    margin-left: 5px;
+  }
+  
+  .mat-toolbar {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mat-icon-button {
+    color: white;
+  }
+  
+  .mat-icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .mat-button {
+    color: white;
+  }
+  
+  .mat-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }

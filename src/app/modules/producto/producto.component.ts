@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/service/productos.service';
-import { Producto } from 'src/app/shared/producto';
+import { Producto } from 'src/app/shared/model/producto';
 
 @Component({
   selector: 'app-producto',

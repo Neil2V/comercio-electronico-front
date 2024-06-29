@@ -17,6 +17,7 @@ import { ProductoRoutingModule } from "./producto.routing";
 import { ListProductosComponent } from './list-productos/list-productos.component';
 import { ProductoCardComponent } from './list-productos/producto-card/producto-card.component';
 
+
 @NgModule({
     declarations: [ProductoComponent, ListProductosComponent, ProductoCardComponent],
     imports: [CommonModule, ProductoRoutingModule, MatIconModule, HttpClientModule,
