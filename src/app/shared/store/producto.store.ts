@@ -19,6 +19,13 @@ export class ProductoStore extends ComponentStore<ProductoState> {
 		super(initialState);
 	}
 
-    readonly productos$: Observable<Producto[] | null> = this.select(state => state.productosCart);
-    readonly setProductos = this.updater((state, productosCart: Producto[]) => ({ ...state, productosCart}));
+    readonly getProductos$: Observable<Producto[] | null> = this.select(state => state.productosCart);
+    readonly setProductos1 = this.updater((state, productosCart: Producto[]) => ({ ...state, productosCart}));
+    readonly setProductos = this.updater((state, productosCart: Producto[] | null) => ({
+        ...state,
+        productosCart: [
+          ...(state.productosCart || []),
+          ...(productosCart || [])
+        ]
+      }));
 }
