@@ -11,6 +11,7 @@ export class ProductosService {
     {
       idProducto: 1,
       nombre: 'Coca Cola',
+      descipcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 10.5,
       categoria: 'Bebida',
       stock: 50,
@@ -20,6 +21,7 @@ export class ProductosService {
     {
       idProducto: 2,
       nombre: 'Coca Cola',
+      descipcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 25.75,
       categoria: 'Bebida',
       stock: 100,
@@ -29,6 +31,7 @@ export class ProductosService {
     {
       idProducto: 3,
       nombre: 'Coca Cola',
+      descipcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 5.99,
       categoria: 'Bebida',
       stock: 30,
@@ -38,6 +41,7 @@ export class ProductosService {
     {
       idProducto: 4,
       nombre: 'Coca Cola',
+      descipcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 15.0,
       categoria: 'Bebida',
       stock: 20,
@@ -47,6 +51,7 @@ export class ProductosService {
     {
       idProducto: 5,
       nombre: 'Coca Cola',
+      descipcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 8.49,
       categoria: 'Bebida',
       stock: 75,
