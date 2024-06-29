@@ -1,0 +1,30 @@
+<mat-dialog-content class="pedido-detail-container">
+    <div class="header">
+      <h2 mat-dialog-title>{{title}} Pedido</h2>
+    </div>
+    <div class="body scrollable-content">
+      <div class="row about-pedido">
+        <div class="col-6">
+            <mat-form-field appearance="fill">
+                <mat-label>Cliente</mat-label>
+                <mat-select #cliente formControlName="cliente">
+                  <mat-option *ngFor="let cliente of clientes" [value]="cliente">
+                    {{cliente.nombre}} {{cliente.apellido}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-6">
+
+        </div>
+      </div>
+    </div>
+    <div class="footer d-flex justify-content-between">
+      <div class="col"></div>
+      <div class="col d-flex justify-content-end">
+        <button mat-button (click)="close()" class="custom-text-color">Guardar</button>
+        <button mat-button (click)="close()" color="primary">Cancelar</button>
+      </div>
+      
+    </div>
+  </mat-dialog-content>

@@ -54,9 +54,9 @@ export class AgGridCustomComponent implements OnChanges, OnDestroy  {
 	@Output() onGridChange = new EventEmitter<[GridApi, ColumnApi]>();
 	@Output() onGridSelectChange = new EventEmitter<any[]>();
 	@Output() onGridSetAll = new EventEmitter<RowNode>();
+	@Output() onEditRow: EventEmitter<any> = new EventEmitter();
 	@Output() onDeleteRow: EventEmitter<any> = new EventEmitter();
 	@Output() onCellStopEditing: EventEmitter<any> = new EventEmitter();
-
 	_frameworkComponents: any = {
 		editComponent: EditComponent
 	};
@@ -131,6 +131,11 @@ export class AgGridCustomComponent implements OnChanges, OnDestroy  {
 	changeFilter(value: string): void {
 		this.gridApi?.setQuickFilter(value);
 		this.onChangeFilter.emit(value);
+	}
+
+	methodFromParent_edit(cell: number) {
+		const ROWNODE = this.gridApi.getDisplayedRowAtIndex(cell);
+		this.onEditRow.emit(ROWNODE);
 	}
 
 	methodFromParent_deleteBasic(cell: number) {

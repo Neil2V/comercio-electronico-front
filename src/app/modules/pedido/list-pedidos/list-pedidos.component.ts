@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ColDef, ColumnApi, GridApi, RowNode, ValueGetterParams } from 'ag-grid-community';
+import { MatDialog } from '@angular/material/dialog';
+import { ColDef, ColumnApi, GridApi, RowNode, ValueFormatterParams, ValueGetterParams } from 'ag-grid-community';
 import { Observable, of } from 'rxjs';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { PedidosService } from 'src/app/service/pedidos.service';
 import { Pedido } from 'src/app/shared/model/pedido';
+import { RegeditPedidoComponent } from '../regedit-pedido/regedit-pedido.component';
 
 interface ValueGetterParamsCustom extends ValueGetterParams {
 	data: Pedido;
@@ -23,8 +25,8 @@ export class ListPedidosComponent implements OnInit {
 
 	listPedidos: Pedido[] = [];
 
-	constructor(private readonly clienteService: ClienteService,
-		private readonly pedidosService: PedidosService) {
+	constructor(
+		private readonly pedidosService: PedidosService, private readonly dialog: MatDialog) {
 		this._initAgGrid();
 	}
 	ngOnInit(): void {
@@ -38,17 +40,37 @@ export class ListPedidosComponent implements OnInit {
 				field: 'nroPedido',
 				width: 200,
 				resizable: false,
-			},
-			{
-				headerName: 'Cliente',
-				field: 'cliente.nombre',
-				width: 200,
-				valueGetter: (params: ValueGetterParamsCustom): string => params.data.cliente?.nombre + '  ' + params.data.cliente?.apellido,
-				resizable: false,
 				sortable: true,
 				pinned: 'left',
 				suppressMenu: true,
 				lockPosition: true,
+			},
+			{
+				headerName: 'Fecha registro',
+				field: 'fchRegistro',
+				width: 150,
+				valueFormatter: params => {
+					const date = params.value;
+					if (!date) {
+					  return '';
+					}
+					const formattedDate = new Date(date).toLocaleDateString('es-ES');
+					return formattedDate;
+				},
+				resizable: false,
+			},
+			{
+				headerName: 'Cliente',
+				field: 'cliente.nombre',
+				width: 250,
+				valueGetter: (params: ValueGetterParamsCustom): string => params.data.cliente?.nombre + '  ' + params.data.cliente?.apellido,
+				resizable: false,
+			},
+			{
+				headerName: 'Telefono',
+				field: 'cliente.telefono',
+				width: 150,
+				resizable: false,
 			},
 			{
 				headerName: 'Estado',
@@ -59,7 +81,7 @@ export class ListPedidosComponent implements OnInit {
 			{
 				headerName: 'Total',
 				field: 'total',
-				width: 200,
+				width: 170,
 				resizable: false,
 			}
 		];
@@ -71,39 +93,22 @@ export class ListPedidosComponent implements OnInit {
 		});
 	}
 
-	onButtonAction(typeAction: string, actionCode: string, resource?: any, resourceList?: unknown[]): void {
-		//const cotizacion: SacCotizacion = resource?.data;
-		switch (typeAction) {
-			case 'ActionAgGrid':
-				switch (actionCode) {
-					case 'ACC-FLETE-CARGOS':
-						//this._openFleteCargos(cotizacion);
-						break;
-				}
-				break;
-		}
-	}
-
 	onGridReady(gridApi: GridApi, gridColumnApi: ColumnApi): void {
 		this.gridApi = gridApi;
 		this.gridColumnApi = gridColumnApi;
 	}
 
 	deleteRow(rowNode: RowNode): void {
-		/*this.listSacCotizacionContenedores = [];
-		this.rowData.subscribe((res: FormGroup[]) => {
-			res.forEach((e) => {
-				const sacCotizacionContenedor = e.getRawValue() as SacCotizacionContenedor;
-				if (FormGroupCompare.isDifferentForm(rowNode.data.value, e.value)) {
-					this.listSacCotizacionContenedores?.push(sacCotizacionContenedor);
-				}
-			});
-			const forms = this.listSacCotizacionContenedores?.map((e) => {
-				const form = this._crearFormGrilla();
-				this._llenarForm(form, e);
-				return form;
-			});
-			if (forms) this.rowData = of(forms);
-		});*/
+		
+	}
+
+	editRow(rowNode: RowNode): void {
+		this.dialog.open(RegeditPedidoComponent, {
+			width: '800px',
+			data: {
+				data: rowNode.data,
+				title: 'Modificar'
+			}
+		});
 	}
 }

@@ -4,7 +4,7 @@
 			<h1>Gestión de pedidos</h1>
 		</div>
 	</div>
-    <div class="row">
+    <div class="row pt-4">
 		<div class="col-12">
 			<ag-grid-custom
 				#agGrid
@@ -12,7 +12,7 @@
 				[rowData]="rowData"
 				[columnDefs]="columnDefs"
 				(onDeleteRow)="deleteRow($event)"
-				[height]="'170px'"
+				(onEditRow)="editRow($event)"
 				[menuActions]="true">
 			</ag-grid-custom>
 		</div>

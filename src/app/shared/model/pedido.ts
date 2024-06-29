@@ -8,4 +8,5 @@ export interface Pedido {
     estado: string;
     productos: Producto[];
     total: number;
+    fchRegistro?: Date;
 }

@@ -16,9 +16,11 @@ import { PedidoComponent } from "./pedido.component";
 import { ProductoRoutingModule } from "./pedido.routing";
 import { ListPedidosComponent } from './list-pedidos/list-pedidos.component';
 import { AgGridCustomModule } from "src/app/shared/components/ag-grid-custom/ag-grid-custom.module";
+import { RegeditPedidoComponent } from './regedit-pedido/regedit-pedido.component';
+
 
 @NgModule({
-    declarations: [PedidoComponent, ListPedidosComponent ],
+    declarations: [PedidoComponent, ListPedidosComponent, RegeditPedidoComponent ],
     imports: [CommonModule, ProductoRoutingModule, MatIconModule, HttpClientModule,
         MatTooltipModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatCardModule,
         MatButtonModule, MatSelectModule, ReactiveFormsModule, MatDialogModule, AgGridCustomModule
