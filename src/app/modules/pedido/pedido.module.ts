@@ -14,13 +14,14 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from '@angular/material/dialog';
 import { PedidoComponent } from "./pedido.component";
 import { ProductoRoutingModule } from "./pedido.routing";
-
+import { ListPedidosComponent } from './list-pedidos/list-pedidos.component';
+import { AgGridCustomModule } from "src/app/shared/components/ag-grid-custom/ag-grid-custom.module";
 
 @NgModule({
-    declarations: [PedidoComponent],
+    declarations: [PedidoComponent, ListPedidosComponent ],
     imports: [CommonModule, ProductoRoutingModule, MatIconModule, HttpClientModule,
         MatTooltipModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatCardModule,
-        MatButtonModule, MatSelectModule, ReactiveFormsModule, MatDialogModule
+        MatButtonModule, MatSelectModule, ReactiveFormsModule, MatDialogModule, AgGridCustomModule
     ],
     exports: [PedidoComponent],
 })

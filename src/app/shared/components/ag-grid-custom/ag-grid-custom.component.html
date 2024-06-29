@@ -1,0 +1,30 @@
+<div class="w-100">
+	<div class="row justify-content-start align-items-center my-2" *ngIf="visibleSearch">
+		<div [class]="classSearch" *ngIf="visibleSearch">
+			<input-search #inputSearch (onChange)="changeFilter($event)"></input-search>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12" [ngStyle]="ngStyleContainer">
+			<ag-grid-angular
+				#agGrid
+				class="ag-theme-balham"
+				[ngStyle]="ngStyleAgGrid"
+				[columnDefs]="menuActions ? columnDefsActions : columnDefs"
+				[defaultColDef]="defaultColDef"
+				[frameworkComponents]="_frameworkComponents"
+				[context]="_context"
+				[rowSelection]="rowSelection"
+				[domLayout]="domLayout"
+				[overlayNoRowsTemplate]="overlayNoRowsTemplate"
+				[overlayLoadingTemplate]="overlayLoadingTemplate"
+				[suppressRowClickSelection]="suppressRowClickSelection"
+				[suppressDragLeaveHidesColumns]="true"
+				(gridReady)="gridReady($event)"
+				(rowDataChanged)="rowDataChanged()"
+				(selectionChanged)="selectionChanged()"
+				(cellEditingStopped)="cellStopEditing($event)">
+			</ag-grid-angular>
+		</div>
+	</div>
+</div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +21,7 @@ import { CarritoComponent } from './shared/components/carrito/carrito.component'
   declarations: [
     AppComponent,
     HeaderComponent,
-    CarritoComponent
+    CarritoComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +40,9 @@ import { CarritoComponent } from './shared/components/carrito/carrito.component'
   providers: [
     ProductoStore
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [
-    HeaderComponent
+    HeaderComponent,
   ],
   bootstrap: [AppComponent]
 })

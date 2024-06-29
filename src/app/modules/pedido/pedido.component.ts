@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ClienteService } from 'src/app/service/cliente.service';
+import { PedidosService } from 'src/app/service/pedidos.service';
 import { ProductosService } from 'src/app/service/productos.service';
+import { Pedido } from 'src/app/shared/model/pedido';
 import { Producto } from 'src/app/shared/model/producto';
 
 @Component({
@@ -11,7 +14,7 @@ import { Producto } from 'src/app/shared/model/producto';
 })
 export class PedidoComponent implements OnInit {
 
-  productos: Producto[] = [];
+  pedidos: Pedido[] = [];
   private _formGroup!: FormGroup;
 
   get formGroup(): FormGroup {
@@ -20,10 +23,7 @@ export class PedidoComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly productosService: ProductosService
-  ) {
-    this.initItems();
-   }
+  ) { }
 
    ngOnInit(): void {
     this._createForm();
@@ -36,11 +36,4 @@ export class PedidoComponent implements OnInit {
       webSites: [[]]
     });
   }
-
-  initItems(): void {
-    this.productosService.findProductos().subscribe((res) => {
-      this.productos = res;
-    });
-  }
-
 }
