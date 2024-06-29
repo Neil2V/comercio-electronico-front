@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSelectModule,
     MatIconModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   providers: [],
   exports: [

@@ -12,18 +12,16 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from '@angular/material/dialog';
-import { ProductoComponent } from "./producto.component";
-import { ProductoRoutingModule } from "./producto.routing";
-import { ListProductosComponent } from './list-productos/list-productos.component';
-import { ProductoCardComponent } from './list-productos/producto-card/producto-card.component';
+import { PedidoComponent } from "./pedido.component";
+import { ProductoRoutingModule } from "./pedido.routing";
 
 
 @NgModule({
-    declarations: [ProductoComponent, ListProductosComponent, ProductoCardComponent],
+    declarations: [PedidoComponent],
     imports: [CommonModule, ProductoRoutingModule, MatIconModule, HttpClientModule,
         MatTooltipModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatCardModule,
         MatButtonModule, MatSelectModule, ReactiveFormsModule, MatDialogModule
     ],
-    exports: [ProductoComponent],
+    exports: [PedidoComponent],
 })
-export class ProductoModule { }
+export class PedidoModule { }
