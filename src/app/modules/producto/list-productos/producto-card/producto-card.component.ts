@@ -14,6 +14,7 @@ export class ProductoCardComponent {
   constructor(private readonly store: ProductoStore  ) {}
 
   addToCart(producto: Producto): void {
+    producto.cantidad = 1;
     this.store.setProductos([producto]);
   }
 }
