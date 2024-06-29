@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductoStore } from '../../store/producto.store';
+import { Producto } from '../../model/producto';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,15 @@ import { ProductoStore } from '../../store/producto.store';
 })
 export class HeaderComponent {
 
+  productos: Producto[] = [];
+
   constructor(private readonly store: ProductoStore) {
     this._getProductoStore();
   }
 
   private _getProductoStore(): void {
     this.store.getProductos$.subscribe((res) => {
-      console.log('res: ', res);
+      if (res) this.productos = res;
     });
   }
 }
