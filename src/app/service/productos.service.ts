@@ -15,8 +15,7 @@ export class ProductosService {
       precio: 10.5,
       categoria: 'Bebida',
       stock: 50,
-      imagen: 'cocacola.jpeg',
-      fchRegistro: new Date('2024-06-30')
+      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 2,
@@ -25,8 +24,7 @@ export class ProductosService {
       precio: 25.75,
       categoria: 'Bebida',
       stock: 100,
-      imagen: 'cocacola.jpeg',
-      fchRegistro: new Date('2024-06-29')
+      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 3,
@@ -35,8 +33,7 @@ export class ProductosService {
       precio: 5.99,
       categoria: 'Bebida',
       stock: 30,
-      imagen: 'cocacola.jpeg',
-      fchRegistro: new Date('2024-06-28')
+      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 4,
@@ -45,8 +42,7 @@ export class ProductosService {
       precio: 15.0,
       categoria: 'Bebida',
       stock: 20,
-      imagen: 'cocacola.jpeg',
-      fchRegistro: new Date('2024-06-27')
+      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 5,
@@ -55,8 +51,7 @@ export class ProductosService {
       precio: 8.49,
       categoria: 'Bebida',
       stock: 75,
-      imagen: 'cocacola.jpeg',
-      fchRegistro: new Date('2024-06-26')
+      imagen: 'cocacola.jpeg'
     }
   ];
 

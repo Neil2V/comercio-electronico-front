@@ -61,7 +61,7 @@ export class ListPedidosComponent implements OnInit {
 			},
 			{
 				headerName: 'Cliente',
-				field: 'cliente.nombre',
+				field: 'cliente',
 				width: 250,
 				valueGetter: (params: ValueGetterParamsCustom): string => params.data.cliente?.nombre + '  ' + params.data.cliente?.apellido,
 				resizable: false,

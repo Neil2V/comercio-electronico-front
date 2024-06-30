@@ -7,5 +7,4 @@ export interface Producto {
     cantidad?: number;
     stock?: number;
     imagen?: string;
-    fchRegistro?: Date;
 }

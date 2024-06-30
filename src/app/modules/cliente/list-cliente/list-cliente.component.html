@@ -1,0 +1,27 @@
+<div class="w-100">
+	<div class="row text-center w-100">
+		<div class="col-12">
+			<h1>Gestión de clientes</h1>
+		</div>
+	</div>
+    <div class="row pt-4">
+		<div class="col-12">
+			<div class="row d-flex justify-content-end">
+				<button mat-button color="accent" (click)="registrarCliente()">Registrar cliente</button>
+			</div>
+			<div class="row pt-4">
+				<div class="col-12">
+					<ag-grid-custom
+						#agGrid
+						(onGridReady)="onGridReady($event[0], $event[1])"
+						[rowData]="rowData"
+						[columnDefs]="columnDefs"
+						(onDeleteRow)="deleteRow($event)"
+						(onEditRow)="editRow($event)"
+						[menuActions]="true">
+					</ag-grid-custom>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
