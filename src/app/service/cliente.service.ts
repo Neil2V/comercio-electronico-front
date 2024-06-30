@@ -32,4 +32,9 @@ export class ClienteService {
   actualizarCliente(cliente: Cliente): Observable<Cliente> {
     return this._http.put<Cliente>(`${this._url}/actualizar`, cliente);
   }
+
+  deleteCliente(idCliente: number): Observable<Cliente> {
+    return this._http.delete<Cliente>(`${this._url}/delete/${idCliente}`);
+  }
+
 }

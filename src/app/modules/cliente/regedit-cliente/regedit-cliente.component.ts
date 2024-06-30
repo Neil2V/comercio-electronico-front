@@ -60,7 +60,8 @@ export class RegeditClienteComponent implements OnInit {
 
     this.formGroup.patchValue({
       ...this.cliente
-    })
+    });
+    this.o1 = { ...(this.formGroup.value) };
   }
 
   close(): void {
@@ -85,28 +86,32 @@ export class RegeditClienteComponent implements OnInit {
   guardar(): void {
     const cliente = this.formGroup.getRawValue() as Cliente;
 
-    if (this.title == 'Agregar') {
-      if (this.formGroup.valid) {
-        this.clienteService.registrarCliente(cliente).subscribe((res) => {
-          if (res.nuevo) {
-            this.toastr.success(`Cliente ${res.nombre} registrado !`, 'Éxito');
-            this.dialogRef.close({refresh: true});
-          }
-          else this.toastr.warning(`Ya existe un usuario con dni ${res.dni}`, 'Advertencia');
-        });
-      } else {
-        this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
-      }
-    } else if(this.title == 'Modificar') {
-      if (this.formGroup.valid) {
-        this.clienteService.actualizarCliente(cliente).subscribe((res) => {
-            this.toastr.success(`Cliente ${res.nombre} modificado !`, 'Éxito');
-            this.dialogRef.close({refresh: true});
-        });
-      } else {
-        this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
-      }
-    }
+    if (this.title == 'Agregar') this._save(cliente);
+    else if(this.title == 'Modificar') this._update(cliente);
+  }
 
+  private _save(cliente: Cliente): void {
+    if (this.formGroup.valid) {
+      this.clienteService.registrarCliente(cliente).subscribe((res) => {
+        if (res.nuevo) {
+          this.toastr.success(`Cliente ${res.nombre} registrado !`, 'Éxito');
+          this.dialogRef.close({refresh: true});
+        }
+        else this.toastr.warning(`Ya existe un usuario con dni ${res.dni}`, 'Advertencia');
+      });
+    } else {
+      this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
+    }
+  }
+
+  private _update(cliente: Cliente): void {
+    if (this.formGroup.valid) {
+      this.clienteService.actualizarCliente(cliente).subscribe((res) => {
+          this.toastr.success(`Cliente ${res.nombre} modificado !`, 'Éxito');
+          this.dialogRef.close({refresh: true});
+      });
+    } else {
+      this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
+    }
   }
 }

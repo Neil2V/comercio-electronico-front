@@ -34,6 +34,6 @@ export class EditComponent implements ICellRendererAngularComp {
 	}
 
 	public invokeParentMethod_delete() {
-		this.params.context.componentParent.methodFromParent_delete(`${this.params.node.rowIndex}`);
+		this.params.context.componentParent.methodFromParent_deleteBasic(`${this.params.node.rowIndex}`);
 	}
 }

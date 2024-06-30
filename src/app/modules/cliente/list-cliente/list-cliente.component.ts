@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { Cliente } from 'src/app/shared/model/cliente';
 import { RegeditClienteComponent } from '../regedit-cliente/regedit-cliente.component';
+import { MessageUtilService } from 'src/app/shared/utils/message-util.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface ValueGetterParamsCustom extends ValueGetterParams {
 	data: Cliente;
@@ -25,7 +27,10 @@ export class ListClienteComponent implements OnInit {
 	listCliente: Cliente[] = [];
 
 	constructor(
-		private readonly clienteService: ClienteService, private readonly dialog: MatDialog) {
+		private readonly clienteService: ClienteService, private readonly dialog: MatDialog,
+		private readonly messageUtilService: MessageUtilService,
+		private toastr: ToastrService,
+	) {
 		this._initAgGrid();
 	}
 	ngOnInit(): void {
@@ -81,7 +86,14 @@ export class ListClienteComponent implements OnInit {
 	}
 
 	deleteRow(rowNode: RowNode): void {
-
+		this.messageUtilService.getMessageQuestion(`¿Desea eliminar el cliente?`, '').then((res) => {
+			if (res.value) {
+				this.clienteService.deleteCliente(rowNode.data.idCliente).subscribe((res) => {
+					this.toastr.success(`Cliente ${res.nombre} eliminado !`, 'Éxito');
+					this.initItems();
+				});
+			}
+		});
 	}
 
 	registrarCliente(): void {
