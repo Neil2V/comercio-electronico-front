@@ -102,6 +102,16 @@ export class ListPedidosComponent implements OnInit {
 		
 	}
 
+	crearPedido(): void {
+		this.dialog.open(RegeditPedidoComponent, {
+			width: '800px',
+			data: {
+				data: null,
+				title: 'Agregar'
+			}
+		});
+	}
+
 	editRow(rowNode: RowNode): void {
 		this.dialog.open(RegeditPedidoComponent, {
 			width: '800px',

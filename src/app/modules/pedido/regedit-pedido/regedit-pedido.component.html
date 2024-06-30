@@ -3,7 +3,7 @@
       <h2 mat-dialog-title>{{title}} Pedido</h2>
     </div>
     <div class="body scrollable-content">
-      <div class="row about-pedido">
+      <div class="row">
         <div class="col-6">
             <mat-form-field appearance="fill">
                 <mat-label>Cliente</mat-label>
@@ -15,7 +15,14 @@
               </mat-form-field>
         </div>
         <div class="col-6">
-
+            <mat-form-field appearance="fill">
+                <mat-label>Productos</mat-label>
+                <mat-select #producto formControlName="producto" multiple>
+                  <mat-option *ngFor="let producto of productos" [value]="producto">
+                    {{producto.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ export class ProductosService {
     },
     {
       idProducto: 2,
-      nombre: 'Coca Cola',
+      nombre: 'Inka Cola',
       descripcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 25.75,
       categoria: 'Bebida',
@@ -30,7 +30,7 @@ export class ProductosService {
     },
     {
       idProducto: 3,
-      nombre: 'Coca Cola',
+      nombre: 'Pepsi',
       descripcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 5.99,
       categoria: 'Bebida',
@@ -40,7 +40,7 @@ export class ProductosService {
     },
     {
       idProducto: 4,
-      nombre: 'Coca Cola',
+      nombre: 'Guarana',
       descripcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 15.0,
       categoria: 'Bebida',
@@ -50,7 +50,7 @@ export class ProductosService {
     },
     {
       idProducto: 5,
-      nombre: 'Coca Cola',
+      nombre: 'Sprite',
       descripcion: 'Gaseosa Coca-cola Sin Azúcar de 500 mL',
       precio: 8.49,
       categoria: 'Bebida',

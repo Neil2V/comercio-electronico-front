@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
+import { Observable, combineLatest, forkJoin, of } from 'rxjs';
 import { ClienteService } from 'src/app/service/cliente.service';
+import { ProductosService } from 'src/app/service/productos.service';
 import { Cliente } from 'src/app/shared/model/cliente';
 import { Pedido } from 'src/app/shared/model/pedido';
+import { Producto } from 'src/app/shared/model/producto';
 
 @Component({
   selector: 'app-regedit-pedido',
@@ -15,6 +17,8 @@ export class RegeditPedidoComponent implements OnInit{
 
   private _formGroup!: FormGroup;
   clientes: Cliente[] = [];
+  productos: Producto[] = [];
+
   pedido!: Pedido;
   title = '';
 
@@ -26,7 +30,8 @@ export class RegeditPedidoComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) data: Record<string, unknown>,
     public readonly dialogRef: MatDialogRef<RegeditPedidoComponent>,
     private readonly fb: FormBuilder,
-    private readonly clienteService: ClienteService
+    private readonly clienteService: ClienteService,
+    private readonly productosService: ProductosService
   ) { 
     this.pedido = data['data'] as unknown as Pedido;
     this.title = data['title'] as unknown as string;
@@ -40,12 +45,18 @@ export class RegeditPedidoComponent implements OnInit{
   private _createForm(): void {
     this._formGroup = this.fb.group({
       cliente: [null],
+      producto: [[]]
     });
   }
 
   loadData(): void {
-    this.clienteService.findClientes().subscribe((res) => {
-      this.clientes = res;
+
+    combineLatest([
+      this.clienteService.findClientes(),
+      this.productosService.findProductos()
+    ]).subscribe(([c1, c2]) => {
+      this.clientes = c1;
+      this.productos = c2;
     });
   }
 
