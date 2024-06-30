@@ -1,12 +1,12 @@
 import { Cliente } from "./cliente";
 import { Producto } from "./producto";
+import { ProductoPedido } from "./productoPedido";
 
 export interface Pedido {
-    idPedido: number;
-    nroPedido: string;
+    id: number;
     cliente: Cliente;
     estado: string;
-    productos: Producto[];
+    productos: ProductoPedido[];
     total: number;
     fchRegistro?: Date;
 }

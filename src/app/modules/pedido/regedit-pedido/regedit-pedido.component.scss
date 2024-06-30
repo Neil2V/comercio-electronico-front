@@ -30,13 +30,6 @@
     border-top: 1px solid #e0e0e0;
   }
 
-  .scrollable-content {
-    flex-grow: 1;
-    overflow-y: auto; /* Activa el scroll vertical */
-    max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
-    padding-right: 15px; /* Asegura que el contenido no se oculte detrás del scrollbar */
-  }
-
   .mat-dialog-content {
     max-height: 80vh;
     overflow-y: auto;

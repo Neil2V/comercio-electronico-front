@@ -1,37 +1,51 @@
 <mat-dialog-content class="pedido-detail-container">
-    <div class="header">
-      <h2 mat-dialog-title>{{title}} Pedido</h2>
-    </div>
-    <div class="body scrollable-content">
-      <div class="row">
-        <div class="col-6">
-            <mat-form-field appearance="fill">
-                <mat-label>Cliente</mat-label>
-                <mat-select #cliente formControlName="cliente">
-                  <mat-option *ngFor="let cliente of clientes" [value]="cliente">
-                    {{cliente.nombre}} {{cliente.apellido}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div class="col-6">
-            <mat-form-field appearance="fill">
-                <mat-label>Productos</mat-label>
-                <mat-select #producto formControlName="producto" multiple>
-                  <mat-option *ngFor="let producto of productos" [value]="producto">
-                    {{producto.nombre}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
+  <div class="header">
+    <h2 mat-dialog-title>{{title}} Pedido</h2>
+  </div>
+  <div class="body" [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Cliente</mat-label>
+          <mat-select #cliente formControlName="cliente">
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente">
+              {{cliente.nombre}} {{cliente.apellido}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Productos</mat-label>
+          <mat-select #producto formControlName="productos" multiple>
+            <mat-option *ngFor="let producto of productos" [value]="producto">
+              {{producto.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
-    <div class="footer d-flex justify-content-between">
-      <div class="col"></div>
-      <div class="col d-flex justify-content-end">
-        <button mat-button (click)="close()" class="custom-text-color">Guardar</button>
-        <button mat-button (click)="close()" color="primary">Cancelar</button>
+    <div *ngFor="let producto of listProductos; let i = index" class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Producto</mat-label>
+          <input type="text" class="uppercase-input" [disabled]="true" matInput value="{{producto.nombre}}">
+        </mat-form-field>
       </div>
-      
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Cantidad</mat-label>
+          <input type="text" class="uppercase-input" matInput (input)="onCantidadChange($event, producto)">
+        </mat-form-field>
+      </div>
     </div>
-  </mat-dialog-content>
+  </div>
+  <div class="footer d-flex justify-content-between">
+    <div class="col"></div>
+    <div class="col d-flex justify-content-end">
+      <button mat-button (click)="guardar()" class="custom-text-color">Guardar</button>
+      <button mat-button (click)="close()" color="primary">Cancelar</button>
+    </div>
+
+  </div>
+</mat-dialog-content>

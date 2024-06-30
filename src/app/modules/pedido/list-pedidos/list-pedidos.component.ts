@@ -36,16 +36,6 @@ export class ListPedidosComponent implements OnInit {
 	private _initAgGrid(): void {
 		this.columnDefs = [
 			{
-				headerName: 'Nro Pedido',
-				field: 'nroPedido',
-				width: 200,
-				resizable: false,
-				sortable: true,
-				pinned: 'left',
-				suppressMenu: true,
-				lockPosition: true,
-			},
-			{
 				headerName: 'Fecha registro',
 				field: 'fchRegistro',
 				width: 150,
@@ -107,8 +97,9 @@ export class ListPedidosComponent implements OnInit {
 			width: '800px',
 			data: {
 				data: null,
-				title: 'Agregar'
-			}
+				title: 'Registrar'
+			},
+			disableClose: true
 		});
 	}
 
@@ -118,7 +109,8 @@ export class ListPedidosComponent implements OnInit {
 			data: {
 				data: rowNode.data,
 				title: 'Modificar'
-			}
+			},
+			disableClose: true
 		});
 	}
 }
