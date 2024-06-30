@@ -68,13 +68,13 @@ export class RegeditClienteComponent implements OnInit {
       this.messageCloseDialog();
     }
 		else {
-      this.dialogRef.close();
+      this.dialogRef.close({refresh: false});
     }
   }
 
   messageCloseDialog(): void {
 		this.messageUtilService.getMessageQuestion(`¿Desea cancelar el registro?`, 'Los cambios realizados no se guardarán').then((res) => {
-			if (res.value) this.dialogRef.close();
+			if (res.value) this.dialogRef.close({refresh: false});
 		});
 	}
 
@@ -85,14 +85,28 @@ export class RegeditClienteComponent implements OnInit {
   guardar(): void {
     const cliente = this.formGroup.getRawValue() as Cliente;
 
-    if (this.formGroup.valid) {
-      this.clienteService.registrarCliente(cliente).subscribe((res) => {
-        if (res.nuevo) this.toastr.success(`'Cliente '${res.nombre} registrado !`, 'Éxito');
-        else this.toastr.warning(`Ya existe un usuario con dni ${res.dni}`, 'Advertencia');
-      });
-    } else {
-      this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
+    if (this.title == 'Agregar') {
+      if (this.formGroup.valid) {
+        this.clienteService.registrarCliente(cliente).subscribe((res) => {
+          if (res.nuevo) {
+            this.toastr.success(`Cliente ${res.nombre} registrado !`, 'Éxito');
+            this.dialogRef.close({refresh: true});
+          }
+          else this.toastr.warning(`Ya existe un usuario con dni ${res.dni}`, 'Advertencia');
+        });
+      } else {
+        this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
+      }
+    } else if(this.title == 'Modificar') {
+      if (this.formGroup.valid) {
+        this.clienteService.actualizarCliente(cliente).subscribe((res) => {
+            this.toastr.success(`Cliente ${res.nombre} modificado !`, 'Éxito');
+            this.dialogRef.close({refresh: true});
+        });
+      } else {
+        this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
+      }
     }
-  }
 
+  }
 }

@@ -92,6 +92,12 @@ export class ListClienteComponent implements OnInit {
 				title: 'Agregar'
 			},
 			disableClose: true
+		})
+		.afterClosed()
+		.subscribe(({refresh}) => {
+			if (refresh) {
+				this.initItems();
+			}
 		});
 	}
 
@@ -101,8 +107,16 @@ export class ListClienteComponent implements OnInit {
 			data: {
 				data: rowNode.data,
 				title: 'Modificar'
+			},
+			disableClose: true
+		})
+		.afterClosed()
+		.subscribe(({refresh}) => {
+			if (refresh) {
+				this.initItems();
 			}
 		});
+		
 	}
 
 }

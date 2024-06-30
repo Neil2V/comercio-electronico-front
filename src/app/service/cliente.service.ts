@@ -28,4 +28,8 @@ export class ClienteService {
   registrarCliente(cliente: Cliente): Observable<Cliente> {
     return this._http.post<Cliente>(`${this._url}/registrar`, cliente);
   }
+
+  actualizarCliente(cliente: Cliente): Observable<Cliente> {
+    return this._http.put<Cliente>(`${this._url}/actualizar`, cliente);
+  }
 }
