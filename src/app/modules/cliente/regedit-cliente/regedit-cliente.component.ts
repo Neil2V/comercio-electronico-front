@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { combineLatest } from 'rxjs';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { Cliente } from 'src/app/shared/model/cliente';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-regedit-cliente',
@@ -25,6 +26,7 @@ export class RegeditClienteComponent implements OnInit {
     public readonly dialogRef: MatDialogRef<RegeditClienteComponent>,
     private readonly fb: FormBuilder,
     private readonly clienteService: ClienteService,
+    private toastr: ToastrService
   ) { 
     this.cliente = data['data'] as unknown as Cliente;
     this.title = data['title'] as unknown as string;
@@ -37,17 +39,15 @@ export class RegeditClienteComponent implements OnInit {
 
   private _createForm(): void {
     this._formGroup = this.fb.group({
-      nombre: [''],
-      apellido: [''],
+      nombre: ['',  [Validators.required]],
+      apellido: ['', [Validators.required]],
       telefono: [''],
-      dni: ['']
+      dni: ['', [Validators.required]]
     });
   }
 
   private llenarForm(): void {
     if(this.title == 'Agregar') return ;
-
-    console.log('cliente: ', this.cliente);
 
     this.formGroup.patchValue({
       ...this.cliente
@@ -60,8 +60,8 @@ export class RegeditClienteComponent implements OnInit {
 
   guardar(): void {
     const cliente = this.formGroup.getRawValue() as Cliente;
-    this.clienteService.guardar(cliente).subscribe((res) => {
-      
+    this.clienteService.registrarCliene(cliente).subscribe((res) => {
+      this.toastr.success(`'Cliente '${res.nombre} guardado !`, 'Éxito');
     });
   }
 

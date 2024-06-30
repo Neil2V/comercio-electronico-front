@@ -12,12 +12,12 @@ interface ValueGetterParamsCustom extends ValueGetterParams {
 
 
 @Component({
-  selector: 'app-list-cliente',
-  templateUrl: './list-cliente.component.html',
-  styleUrls: ['./list-cliente.component.scss']
+	selector: 'app-list-cliente',
+	templateUrl: './list-cliente.component.html',
+	styleUrls: ['./list-cliente.component.scss']
 })
-export class ListClienteComponent implements OnInit{
-  gridApi!: GridApi;
+export class ListClienteComponent implements OnInit {
+	gridApi!: GridApi;
 	gridColumnApi?: ColumnApi;
 	columnDefs: ColDef[] = [];
 	rowData: Observable<any> = of([]);
@@ -34,32 +34,32 @@ export class ListClienteComponent implements OnInit{
 
 	private _initAgGrid(): void {
 		this.columnDefs = [
-      {
+			{
 				headerName: 'Dni',
 				field: 'dni',
-				width: 170,
+				width: 270,
 				resizable: false,
 			},
-      {
+			{
 				headerName: 'Nombres',
 				valueGetter: (params: ValueGetterParamsCustom): string => params.data?.nombre + '  ' + params.data?.apellido,
-				width: 150,
+				width: 250,
 				resizable: false,
 			},
 			{
 				headerName: 'Telefono',
 				field: 'telefono',
-				width: 150,
+				width: 250,
 				resizable: false,
 			},
 			{
 				headerName: 'Fecha registro',
 				field: 'fchRegistro',
-				width: 150,
+				width: 250,
 				valueFormatter: params => {
 					const date = params.value;
 					if (!date) {
-					  return '';
+						return '';
 					}
 					const formattedDate = new Date(date).toLocaleDateString('es-ES');
 					return formattedDate;
@@ -70,9 +70,7 @@ export class ListClienteComponent implements OnInit{
 	}
 
 	initItems(): void {
-		console.log('test clientes');
 		this.clienteService.findAllClientes().subscribe((res) => {
-			console.log('test clientes2');
 			this.rowData = of(res);
 		});
 	}
@@ -83,7 +81,7 @@ export class ListClienteComponent implements OnInit{
 	}
 
 	deleteRow(rowNode: RowNode): void {
-		
+
 	}
 
 	registrarCliente(): void {
@@ -92,7 +90,8 @@ export class ListClienteComponent implements OnInit{
 			data: {
 				data: null,
 				title: 'Agregar'
-			}
+			},
+			disableClose: true
 		});
 	}
 

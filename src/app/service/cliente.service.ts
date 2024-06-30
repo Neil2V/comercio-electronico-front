@@ -21,15 +21,11 @@ export class ClienteService {
 
   constructor(protected _http: HttpClient) { }
 
-  /*findClientes(): Observable<Cliente[]> {
-    return 
-  }*/
-
   findAllClientes(): Observable<Cliente[]> {
     return this._http.get<Cliente[]>(`${this._url}/listadoClientes`);
   }
 
-  guardar(cliente: Cliente): Observable<any> {
-    return of();
+  registrarCliene(cliente: Cliente): Observable<Cliente> {
+    return this._http.post<Cliente>(`${this._url}/registrar`, cliente);
   }
 }
