@@ -25,7 +25,7 @@ export class ClienteService {
     return this._http.get<Cliente[]>(`${this._url}/listadoClientes`);
   }
 
-  registrarCliene(cliente: Cliente): Observable<Cliente> {
+  registrarCliente(cliente: Cliente): Observable<Cliente> {
     return this._http.post<Cliente>(`${this._url}/registrar`, cliente);
   }
 }

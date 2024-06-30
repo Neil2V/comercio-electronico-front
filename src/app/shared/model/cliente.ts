@@ -5,4 +5,5 @@ export interface Cliente {
     apellido?: string;
     telefono?: string;
     dni?: string;
+    nuevo?: boolean;
 }

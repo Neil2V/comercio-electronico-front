@@ -30,12 +30,14 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/sweetalert2/dist/sweetalert2.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/sweetalert2/dist/sweetalert2.min.js",
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],

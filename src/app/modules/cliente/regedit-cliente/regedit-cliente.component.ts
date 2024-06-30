@@ -4,6 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { Cliente } from 'src/app/shared/model/cliente';
 import { ToastrService } from 'ngx-toastr';
+import { isEqual } from 'lodash';
+import Swal from 'sweetalert2';
+import { MessageUtilService } from 'src/app/shared/utils/message-util.service';
+
 
 
 @Component({
@@ -17,6 +21,9 @@ export class RegeditClienteComponent implements OnInit {
   cliente!: Cliente;
   title = '';
 
+  o1 = {};
+
+
   get formGroup(): FormGroup {
     return this._formGroup;
   }
@@ -26,7 +33,8 @@ export class RegeditClienteComponent implements OnInit {
     public readonly dialogRef: MatDialogRef<RegeditClienteComponent>,
     private readonly fb: FormBuilder,
     private readonly clienteService: ClienteService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private readonly messageUtilService: MessageUtilService,
   ) { 
     this.cliente = data['data'] as unknown as Cliente;
     this.title = data['title'] as unknown as string;
@@ -44,6 +52,7 @@ export class RegeditClienteComponent implements OnInit {
       telefono: [''],
       dni: ['', [Validators.required]]
     });
+    this.o1 = { ...(this.formGroup.value) };
   }
 
   private llenarForm(): void {
@@ -55,14 +64,35 @@ export class RegeditClienteComponent implements OnInit {
   }
 
   close(): void {
-    this.dialogRef.close();
+    if (!this.isFormDifferent()) {
+      this.messageCloseDialog();
+    }
+		else {
+      this.dialogRef.close();
+    }
+  }
+
+  messageCloseDialog(): void {
+		this.messageUtilService.getMessageQuestion(`¿Desea cancelar el registro?`, 'Los cambios realizados no se guardarán').then((res) => {
+			if (res.value) this.dialogRef.close();
+		});
+	}
+
+  isFormDifferent(): boolean {
+    return isEqual(this.formGroup.value, this.o1);
   }
 
   guardar(): void {
     const cliente = this.formGroup.getRawValue() as Cliente;
-    this.clienteService.registrarCliene(cliente).subscribe((res) => {
-      this.toastr.success(`'Cliente '${res.nombre} guardado !`, 'Éxito');
-    });
+
+    if (this.formGroup.valid) {
+      this.clienteService.registrarCliente(cliente).subscribe((res) => {
+        if (res.nuevo) this.toastr.success(`'Cliente '${res.nombre} registrado !`, 'Éxito');
+        else this.toastr.warning(`Ya existe un usuario con dni ${res.dni}`, 'Advertencia');
+      });
+    } else {
+      this.toastr.warning(`Debe llenar campos faltantes`, 'Advertencia');
+    }
   }
 
 }
