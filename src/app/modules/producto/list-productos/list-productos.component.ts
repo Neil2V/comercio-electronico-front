@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Producto } from 'src/app/shared/model/producto';
 
 @Component({
@@ -8,8 +8,8 @@ import { Producto } from 'src/app/shared/model/producto';
 })
 export class ListProductosComponent {
 
+  @Output() emitRefresh = new EventEmitter<boolean>();
   @Input() set productos(v: Producto[]) {
-    console.log('v: ', v);
     this.listProductos = v;
   }
 

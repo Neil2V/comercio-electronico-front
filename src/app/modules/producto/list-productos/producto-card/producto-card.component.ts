@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Producto } from 'src/app/shared/model/producto';
 import { ProductoStore } from 'src/app/shared/store/producto.store';
 import { RegeditProductoComponent } from '../regedit-producto/regedit-producto.component';
+import { ProductosService } from 'src/app/service/productos.service';
+import { MessageUtilService } from 'src/app/shared/utils/message-util.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-producto-card',
@@ -11,9 +14,14 @@ import { RegeditProductoComponent } from '../regedit-producto/regedit-producto.c
 })
 export class ProductoCardComponent {
 
+  @Output() emitRefresh = new EventEmitter<boolean>(false);
   @Input() producto!: Producto;
 
-  constructor(private readonly store: ProductoStore, private readonly dialog: MatDialog) { }
+  constructor(private readonly store: ProductoStore, private readonly dialog: MatDialog,     
+    private readonly productosService: ProductosService,
+    private readonly messageUtilService: MessageUtilService,
+    private toastr: ToastrService,
+  ) { }
 
   verDetalle(producto: Producto): void {
     this.dialog.open(RegeditProductoComponent, {
@@ -26,9 +34,21 @@ export class ProductoCardComponent {
     })
       .afterClosed()
       .subscribe(({ refresh }) => {
+        console.log('refresh: ', refresh);
         if (refresh) {
-          //this.initItems();
+          this.emitRefresh.emit(true);
         }
       });
+  }
+
+  deleteProducto(producto: Producto): void {
+    this.messageUtilService.getMessageQuestion(`¿Desea eliminar el cliente?`, '').then((res) => {
+			if (res.value) {
+        this.productosService.deleteProducto(producto.idProducto).subscribe((res) => {
+					this.toastr.success(`Producto ${res.nombre} eliminado !`, 'Éxito');
+					this.emitRefresh.emit(true);
+        });
+			}
+		});
   }
 }

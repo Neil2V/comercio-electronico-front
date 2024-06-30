@@ -84,11 +84,6 @@ export class RegeditProductoComponent implements OnInit{
 
   guardar(): void {
     const producto = this.formGroup.getRawValue() as Producto;
-
-    console.log('producto: ', producto);
-
-    console.log('title: ', this.title);
-
     if (this.title == 'Registrar') this._save(producto);
     else if(this.title == 'Modificar') this._update(producto);
   }

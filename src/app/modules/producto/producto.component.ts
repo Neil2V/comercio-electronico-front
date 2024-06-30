@@ -13,6 +13,7 @@ import { RegeditProductoComponent } from './list-productos/regedit-producto/rege
 export class ProductoComponent {
 
   productos: Producto[] = [];
+  isRefreshListado = false;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -40,7 +41,7 @@ export class ProductoComponent {
 		.afterClosed()
 		.subscribe(({refresh}) => {
 			if (refresh) {
-				//this.initItems();
+				this.initItems();
 			}
 		});
   }
