@@ -70,7 +70,9 @@ export class ListClienteComponent implements OnInit{
 	}
 
 	initItems(): void {
-		this.clienteService.findClientes().subscribe((res) => {
+		console.log('test clientes');
+		this.clienteService.findAllClientes().subscribe((res) => {
+			console.log('test clientes2');
 			this.rowData = of(res);
 		});
 	}

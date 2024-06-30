@@ -52,7 +52,7 @@ export class RegeditPedidoComponent implements OnInit{
   loadData(): void {
 
     combineLatest([
-      this.clienteService.findClientes(),
+      this.clienteService.findAllClientes(),
       this.productosService.findProductos()
     ]).subscribe(([c1, c2]) => {
       this.clientes = c1;
