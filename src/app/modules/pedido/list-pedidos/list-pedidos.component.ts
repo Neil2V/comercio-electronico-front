@@ -6,6 +6,8 @@ import { ClienteService } from 'src/app/service/cliente.service';
 import { PedidosService } from 'src/app/service/pedidos.service';
 import { Pedido } from 'src/app/shared/model/pedido';
 import { RegeditPedidoComponent } from '../regedit-pedido/regedit-pedido.component';
+import { MessageUtilService } from 'src/app/shared/utils/message-util.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface ValueGetterParamsCustom extends ValueGetterParams {
 	data: Pedido;
@@ -26,7 +28,10 @@ export class ListPedidosComponent implements OnInit {
 	listPedidos: Pedido[] = [];
 
 	constructor(
-		private readonly pedidosService: PedidosService, private readonly dialog: MatDialog) {
+		private readonly pedidosService: PedidosService, private readonly dialog: MatDialog,
+		private readonly messageUtilService: MessageUtilService,
+		private toastr: ToastrService
+	) {
 		this._initAgGrid();
 	}
 	ngOnInit(): void {
@@ -78,7 +83,7 @@ export class ListPedidosComponent implements OnInit {
 	}
 
 	initItems(): void {
-		this.pedidosService.findPedidos().subscribe((res) => {
+		this.pedidosService.findAllPedidos().subscribe((res) => {
 			this.rowData = of(res);
 		});
 	}
@@ -89,7 +94,14 @@ export class ListPedidosComponent implements OnInit {
 	}
 
 	deleteRow(rowNode: RowNode): void {
-		
+		this.messageUtilService.getMessageQuestion(`¿Desea eliminar el cliente?`, '').then((res) => {
+			if (res.value) {
+				this.pedidosService.deletePedido(rowNode.data.id).subscribe((res) => {
+					this.toastr.success(`Pedido ${res.id} eliminado !`, 'Éxito');
+					this.initItems();
+				});
+			}
+		});
 	}
 
 	crearPedido(): void {
@@ -100,6 +112,12 @@ export class ListPedidosComponent implements OnInit {
 				title: 'Registrar'
 			},
 			disableClose: true
+		})
+		.afterClosed()
+		.subscribe(({refresh}) => {
+			if (refresh) {
+				this.initItems();
+			}
 		});
 	}
 

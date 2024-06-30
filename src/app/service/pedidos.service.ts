@@ -1,39 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Pedido } from '../shared/model/pedido';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidosService {
 
-  private pedidos: Pedido[] = [
-    {
-      id: 1,
-      cliente: { idCliente: 1, nombre: 'Juan', apellido: 'Pérez', dni: '45678945', telefono: '987654321' },
-      estado: 'Solicitado',
-      productos: [
-        { idProducto: 1, nombre: 'Producto 1', precio: 100, cantidad: 2 },
-        { idProducto: 2, nombre: 'Producto 2', precio: 200, cantidad: 1 }
-      ],
-      total: 400,
-      fchRegistro: new Date('2024-06-27')
-    },
-    {
-      id: 2,
-      estado: 'Solicitado',
-      cliente: { idCliente: 2, nombre: 'Ana', apellido: 'García', dni: '45678945', telefono: '987654321' },
-      productos: [
-        { idProducto: 3, nombre: 'Producto 3', precio: 150, cantidad: 1 }
-      ],
-      total: 150,
-      fchRegistro: new Date('2024-06-27')
-    }
-  ];
+  private _url = `${environment.HOST_COMERCIO_ELECTRONICO}/pedidos`;
 
-  constructor() { }
+  constructor(protected _http: HttpClient) { }
 
-  findPedidos(): Observable<Pedido[]> {
-    return of(this.pedidos);
+  findAllPedidos(): Observable<Pedido[]> {
+    return this._http.get<Pedido[]>(`${this._url}/listadoPedidos`);
+  }
+
+  registrarPedido(pedido: Pedido): Observable<Pedido> {
+    return this._http.post<Pedido>(`${this._url}/registrar`, pedido);
+  }
+
+  actualizarPedido(pedido: Pedido): Observable<Pedido> {
+    return this._http.put<Pedido>(`${this._url}/actualizar`, pedido);
+  }
+
+  deletePedido(id: string): Observable<Pedido> {
+    return this._http.delete<Pedido>(`${this._url}/delete/${id}`);
   }
 }
