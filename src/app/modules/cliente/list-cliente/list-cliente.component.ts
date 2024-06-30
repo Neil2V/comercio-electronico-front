@@ -101,7 +101,7 @@ export class ListClienteComponent implements OnInit {
 			width: '800px',
 			data: {
 				data: null,
-				title: 'Agregar'
+				title: 'Registrar'
 			},
 			disableClose: true
 		})

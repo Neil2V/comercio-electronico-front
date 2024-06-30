@@ -5,7 +5,6 @@ import { ClienteService } from 'src/app/service/cliente.service';
 import { Cliente } from 'src/app/shared/model/cliente';
 import { ToastrService } from 'ngx-toastr';
 import { isEqual } from 'lodash';
-import Swal from 'sweetalert2';
 import { MessageUtilService } from 'src/app/shared/utils/message-util.service';
 
 
@@ -22,7 +21,6 @@ export class RegeditClienteComponent implements OnInit {
   title = '';
 
   o1 = {};
-
 
   get formGroup(): FormGroup {
     return this._formGroup;
@@ -56,7 +54,7 @@ export class RegeditClienteComponent implements OnInit {
   }
 
   private llenarForm(): void {
-    if(this.title == 'Agregar') return ;
+    if(this.title == 'Registrar') return ;
 
     this.formGroup.patchValue({
       ...this.cliente
@@ -86,7 +84,7 @@ export class RegeditClienteComponent implements OnInit {
   guardar(): void {
     const cliente = this.formGroup.getRawValue() as Cliente;
 
-    if (this.title == 'Agregar') this._save(cliente);
+    if (this.title == 'Registrar') this._save(cliente);
     else if(this.title == 'Modificar') this._update(cliente);
   }
 
