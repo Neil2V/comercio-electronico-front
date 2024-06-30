@@ -21,12 +21,4 @@ export class HeaderComponent {
       if (res) this.productos = res;
     });
   }
-
-  toggleCarrito() {
-    this.mostrarCarrito = !this.mostrarCarrito;
-  }
-
-  eliminarDelCarrito(index: number) {
-    
-  }
 }

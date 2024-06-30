@@ -10,14 +10,5 @@
     <button mat-button routerLink="/clientes" class="ml-4">
       Clientes
     </button>
-    <div class="carrito-dropdown">
-        <button mat-icon-button (click)="toggleCarrito()">
-          <mat-icon>shopping_cart</mat-icon>
-          <span class="cart-count">{{ productos.length }}</span>
-        </button>
-        <div *ngIf="mostrarCarrito" class="carrito-content">
-            <app-carrito [productos]="productos"></app-carrito>
-        </div>
-      </div>
   </mat-toolbar>
   

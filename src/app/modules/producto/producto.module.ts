@@ -16,10 +16,11 @@ import { ProductoComponent } from "./producto.component";
 import { ProductoRoutingModule } from "./producto.routing";
 import { ListProductosComponent } from './list-productos/list-productos.component';
 import { ProductoCardComponent } from './list-productos/producto-card/producto-card.component';
+import { RegeditProductoComponent } from './list-productos/regedit-producto/regedit-producto.component';
 
 
 @NgModule({
-    declarations: [ProductoComponent, ListProductosComponent, ProductoCardComponent],
+    declarations: [ProductoComponent, ListProductosComponent, ProductoCardComponent, RegeditProductoComponent],
     imports: [CommonModule, ProductoRoutingModule, MatIconModule, HttpClientModule,
         MatTooltipModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatCardModule,
         MatButtonModule, MatSelectModule, ReactiveFormsModule, MatDialogModule

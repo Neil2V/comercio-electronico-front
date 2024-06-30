@@ -1,13 +1,23 @@
 <div class="container-fluid w-100 pt-4">
-    <div class="row mx-0 p-x0">
+    <div class="row text-center w-100">
+		<div class="col-12">
+			<h1>Gestión de productos</h1>
+		</div>
+	</div>
+    <div class="row">
         <div class="col-2">
 
         </div>
+        <div class="col-8 d-flex justify-content-end">
+            <button mat-button color="accent" (click)="registrarProducto()">Registrar producto</button>
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mx-0 p-x0">
         <div class="col-8">
             <app-list-productos [productos]="productos"></app-list-productos>
-        </div>
-        <div class="col-2">
-
         </div>
     </div>
 </div>

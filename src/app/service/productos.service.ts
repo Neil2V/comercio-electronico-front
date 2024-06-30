@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Producto } from '../shared/model/producto';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
+
+  private _url = `${environment.HOST_COMERCIO_ELECTRONICO}/productos`;
+
+
 
   productos: Producto[] = [
     {
@@ -15,7 +21,6 @@ export class ProductosService {
       precio: 10.5,
       categoria: 'Bebida',
       stock: 50,
-      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 2,
@@ -24,7 +29,6 @@ export class ProductosService {
       precio: 25.75,
       categoria: 'Bebida',
       stock: 100,
-      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 3,
@@ -33,7 +37,6 @@ export class ProductosService {
       precio: 5.99,
       categoria: 'Bebida',
       stock: 30,
-      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 4,
@@ -42,7 +45,6 @@ export class ProductosService {
       precio: 15.0,
       categoria: 'Bebida',
       stock: 20,
-      imagen: 'cocacola.jpeg'
     },
     {
       idProducto: 5,
@@ -51,13 +53,24 @@ export class ProductosService {
       precio: 8.49,
       categoria: 'Bebida',
       stock: 75,
-      imagen: 'cocacola.jpeg'
     }
   ];
 
-  constructor() { }
+  constructor(protected _http: HttpClient) { }
 
   findProductos(): Observable<Producto[]> {
-    return of(this.productos);
+    return this._http.get<Producto[]>(`${this._url}/listadoProductos`);
+  }
+
+  registrarProducto(producto: Producto): Observable<Producto> {
+    return this._http.post<Producto>(`${this._url}/registrar`, producto);
+  }
+
+  actualizarProducto(producto: Producto): Observable<Producto> {
+    return this._http.put<Producto>(`${this._url}/actualizar`, producto);
+  }
+
+  deleteProducto(idProducto: number): Observable<Producto> {
+    return this._http.delete<Producto>(`${this._url}/delete/${idProducto}`);
   }
 }

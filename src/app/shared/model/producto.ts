@@ -6,5 +6,5 @@ export interface Producto {
     categoria?: string;
     cantidad?: number;
     stock?: number;
-    imagen?: string;
+    nuevo?: boolean;
 }

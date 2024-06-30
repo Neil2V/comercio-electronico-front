@@ -1,0 +1,58 @@
+<mat-dialog-content class="producto-detail-container">
+    <div class="header">
+        <h2 mat-dialog-title>{{title}} producto</h2>
+    </div>
+    <div class="body scrollable-content" [formGroup]="formGroup">
+        <div class="row">
+            <div class="col-4">
+                <mat-form-field #input appearance="fill" class="w-100">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" class="uppercase-input" formControlName="nombre" matInput>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field #input appearance="fill" class="w-100">
+                    <mat-label>Precio</mat-label>
+                    <input type="number" class="uppercase-input" formControlName="precio" matInput>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field #input appearance="fill" class="w-100">
+                    <mat-label>Codigo</mat-label>
+                    <input type="text" class="uppercase-input" formControlName="codigo" matInput>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <mat-form-field #input appearance="fill" class="w-100">
+                    <mat-label>Categoria</mat-label>
+                    <input type="text" class="uppercase-input" formControlName="categoria" matInput>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field #input appearance="fill" class="w-100">
+                    <mat-label>Stock</mat-label>
+                    <input type="text" class="uppercase-input" formControlName="stock" matInput>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field #input appearance="fill" class="w-100">
+                    <mat-label>Descripcion</mat-label>
+                    <input type="text" class="uppercase-input" formControlName="descripcion" matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="footer d-flex justify-content-between">
+        <div class="col"></div>
+        <div class="col d-flex justify-content-end">
+            <button mat-button (click)="guardar()" [disabled]="isFormDifferent()" class="custom-text-color"
+                [ngClass]="{'custom-disabled-button': isFormDifferent()}">Guardar</button>
+            <button mat-button (click)="close()" color="primary">Cancelar</button>
+        </div>
+
+    </div>
+</mat-dialog-content>

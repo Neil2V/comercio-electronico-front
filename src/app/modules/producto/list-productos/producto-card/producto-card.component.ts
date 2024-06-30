@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Producto } from 'src/app/shared/model/producto';
 import { ProductoStore } from 'src/app/shared/store/producto.store';
+import { RegeditProductoComponent } from '../regedit-producto/regedit-producto.component';
 
 @Component({
   selector: 'app-producto-card',
@@ -11,10 +13,22 @@ export class ProductoCardComponent {
 
   @Input() producto!: Producto;
 
-  constructor(private readonly store: ProductoStore  ) {}
+  constructor(private readonly store: ProductoStore, private readonly dialog: MatDialog) { }
 
-  addToCart(producto: Producto): void {
-    producto.cantidad = 1;
-    this.store.setProductos([producto]);
+  verDetalle(producto: Producto): void {
+    this.dialog.open(RegeditProductoComponent, {
+      width: '900px',
+      data: {
+        data: producto,
+        title: 'Modificar'
+      },
+      disableClose: true
+    })
+      .afterClosed()
+      .subscribe(({ refresh }) => {
+        if (refresh) {
+          //this.initItems();
+        }
+      });
   }
 }
