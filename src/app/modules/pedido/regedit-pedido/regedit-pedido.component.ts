@@ -150,12 +150,12 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   close(): void {
-    if (!this.isFormDifferent()) {
+    /*if (!this.isFormDifferent()) {
       this.messageCloseDialog();
     }
-		else {
+		else {*/
       this.dialogRef.close({refresh: false});
-    }
+    //}
   }
 
   messageCloseDialog(): void {
