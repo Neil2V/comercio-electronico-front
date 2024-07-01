@@ -80,8 +80,6 @@ export class RegeditPedidoComponent implements OnInit {
     this.isDataDefault.subscribe((res) => {
       if (res) {
         this.formGroup.get('total')?.setValue(this.pedido.total);
-        //this.formGroup.get('listProductos')?.setValue(this.pedido.productos);
-
         this.clientes.forEach((e: Cliente) => {
           if (e.idCliente === this.pedido?.cliente?.idCliente) {
             this.formGroup.get('cliente')?.setValue(e);
@@ -91,7 +89,6 @@ export class RegeditPedidoComponent implements OnInit {
         this.o1 = { ...(this.formGroup.value) };
       }
     });
-
   }
 
   private _valueChanges(): void {
@@ -115,7 +112,7 @@ export class RegeditPedidoComponent implements OnInit {
 
     const productos = this._listProductoSave();
 
-    let total = 0;
+    /*let total = 0;
 
     let showTotal = 0;
 
@@ -123,7 +120,11 @@ export class RegeditPedidoComponent implements OnInit {
       total += (e.cantidad ?? 1) * (e.precio ?? 1);
     });
 
-    showTotal = total;
+    showTotal = total;*/
+
+    //const productos = this._listProductoSave();
+    let showTotal = productos.reduce((total, e) => total + ((e.cantidad ?? 1) * (e.precio ?? 1)), 0);
+
 
     this.formGroup.get('total')?.setValue(showTotal);
   }
