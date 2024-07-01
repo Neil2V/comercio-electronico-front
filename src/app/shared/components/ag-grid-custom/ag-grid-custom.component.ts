@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges, OnDestroy, OnChanges } from '@angular/core';
 import { CellEditingStoppedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community';
 import { Observable, Subscription, of } from 'rxjs';
-import { DeleteComponent } from './delete/delete.component';
 import { EditComponent } from './edit/edit.component';
 
 @Component({
