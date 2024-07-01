@@ -42,7 +42,7 @@ export class ProductoCardComponent {
   }
 
   deleteProducto(producto: Producto): void {
-    this.messageUtilService.getMessageQuestion(`¿Desea eliminar el cliente?`, '').then((res) => {
+    this.messageUtilService.getMessageQuestion(`¿Desea eliminar el producto?`, '').then((res) => {
 			if (res.value) {
         this.productosService.deleteProducto(producto.idProducto).subscribe((res) => {
 					this.toastr.success(`Producto ${res.nombre} eliminado !`, 'Éxito');

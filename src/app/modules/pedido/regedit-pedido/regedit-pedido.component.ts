@@ -36,8 +36,6 @@ export class RegeditPedidoComponent implements OnInit {
 
   isShowTotal = false;
 
-  isCantidad = false;
-
   get formGroup(): FormGroup {
     return this._formGroup;
   }
@@ -134,8 +132,6 @@ export class RegeditPedidoComponent implements OnInit {
     let showTotal = productos.reduce((total, e) => total + ((e.cantidad ?? 1) * (e.precio ?? 1)), 0);
 
     this.formGroup.get('total')?.setValue(showTotal);
-
-    this.isCantidad = true;
   }
 
   loadData(): void {
