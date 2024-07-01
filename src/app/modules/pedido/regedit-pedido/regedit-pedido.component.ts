@@ -36,6 +36,8 @@ export class RegeditPedidoComponent implements OnInit {
 
   isShowTotal = false;
 
+  isCantidad = false;
+
   get formGroup(): FormGroup {
     return this._formGroup;
   }
@@ -91,7 +93,8 @@ export class RegeditPedidoComponent implements OnInit {
         const productosFilter = this.productos.filter(producto =>
           this.listProductos.some(p => p.idProducto === producto.idProducto)
         );
-          //this.formGroup.get('productos')?.setValue(productosFilter);
+
+          this.formGroup.get('productos')?.setValue(productosFilter);
 
         if (this.listProductos.length > 0) this.isShowTotal = true;
         this.o1 = { ...(this.formGroup.value) };
@@ -101,7 +104,16 @@ export class RegeditPedidoComponent implements OnInit {
 
   private _valueChanges(): void {
     this.formGroup.get('productos')?.valueChanges.pipe(distinctUntilChanged()).subscribe((res: Producto[]) => {
-      this.listProductos = res;
+      if (this.title == 'Registrar') {
+        this.listProductos = res.map((e) => ({
+          idProducto: e.idProducto,
+          nombre: e.nombre,
+          descripcion: e.descripcion,
+          categoria: e.categoria,
+          precio: e.precio
+        }));
+        this.o1 = { ...(this.formGroup.value) };
+      }
       if (res.length > 0) this.isShowTotal = true;
       else this.isShowTotal = false;
     });
@@ -122,6 +134,8 @@ export class RegeditPedidoComponent implements OnInit {
     let showTotal = productos.reduce((total, e) => total + ((e.cantidad ?? 1) * (e.precio ?? 1)), 0);
 
     this.formGroup.get('total')?.setValue(showTotal);
+
+    this.isCantidad = true;
   }
 
   loadData(): void {
@@ -156,18 +170,19 @@ export class RegeditPedidoComponent implements OnInit {
 
     const pedidoSave: Pedido = {};
 
-    pedidoSave.id = this.pedido.id;
+    if (this.title == 'Modificar') pedidoSave.id = this.pedido.id;
+
     pedidoSave.estado = 'Solicitado';
     pedidoSave.cliente = pedido.cliente;
     pedidoSave.productos = this._listProductoSave();
-
 
     if (this.title == 'Registrar') this._save(pedidoSave);
     else if (this.title == 'Modificar') this._update(pedidoSave);
   }
 
   isFormDifferent(): boolean {
-    return isEqual(this.formGroup.value, this.o1);
+    if (this.title == 'Registrar') return (isEqual(this.formGroup.value, this.o1));
+    else return (!isEqual(this.formGroup.value, this.o1));
   }
 
   private _save(pedido: Pedido) {
