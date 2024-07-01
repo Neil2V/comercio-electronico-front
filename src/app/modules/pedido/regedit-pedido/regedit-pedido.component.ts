@@ -24,7 +24,7 @@ export class RegeditPedidoComponent implements OnInit {
   private _formGroup!: FormGroup;
   clientes: Cliente[] = [];
   productos: Producto[] = [];
-  listProductos: Producto[] = [];
+  listProductos: ProductoPedido[] = [];
   saveProductos: ProductoPedido[] = [];
 
   isDataDefault: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -64,6 +64,7 @@ export class RegeditPedidoComponent implements OnInit {
 
   private _createForm(): void {
     this._formGroup = this.fb.group({
+      id: [],
       cliente: [null, [Validators.required]],
       productos: [[], [Validators.required]],
       total: [0, [Validators.required]]
@@ -77,6 +78,7 @@ export class RegeditPedidoComponent implements OnInit {
 
     this.isDataDefault.subscribe((res) => {
       if (res) {
+        this.formGroup.get('id')?.setValue(this.pedido.id);
         this.formGroup.get('total')?.setValue(this.pedido.total);
         this.clientes.forEach((e: Cliente) => {
           if (e.idCliente === this.pedido?.cliente?.idCliente) {
@@ -86,17 +88,10 @@ export class RegeditPedidoComponent implements OnInit {
         });
         this.listProductos = this.pedido.productos as ProductoPedido[];
 
-        console.log('list productos: ', this.listProductos);
-
-        /*const productosCoincidentes = this.productos.filter(producto =>
+        const productosFilter = this.productos.filter(producto =>
           this.listProductos.some(p => p.idProducto === producto.idProducto)
         );
-        
-          console.log('productos coindientes: ',  productosCoincidentes);*/
-          //this.formGroup.get('productos')?.setValue(productosCoincidentes);
-
-          console.log('list productos2: ', this.listProductos);
-
+          //this.formGroup.get('productos')?.setValue(productosFilter);
 
         if (this.listProductos.length > 0) this.isShowTotal = true;
         this.o1 = { ...(this.formGroup.value) };
@@ -161,6 +156,7 @@ export class RegeditPedidoComponent implements OnInit {
 
     const pedidoSave: Pedido = {};
 
+    pedidoSave.id = this.pedido.id;
     pedidoSave.estado = 'Solicitado';
     pedidoSave.cliente = pedido.cliente;
     pedidoSave.productos = this._listProductoSave();
@@ -171,8 +167,6 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   isFormDifferent(): boolean {
-    //console.log('form: ', this.formGroup.value);
-    //console.log('o1: ', this.o1);
     return isEqual(this.formGroup.value, this.o1);
   }
 
