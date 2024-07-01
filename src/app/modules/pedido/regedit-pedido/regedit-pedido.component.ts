@@ -84,7 +84,20 @@ export class RegeditPedidoComponent implements OnInit {
             this._changeDetectorRef.detectChanges();
           }
         });
-        this.listProductos = this.pedido.productos as Producto[];
+        this.listProductos = this.pedido.productos as ProductoPedido[];
+
+        console.log('list productos: ', this.listProductos);
+
+        /*const productosCoincidentes = this.productos.filter(producto =>
+          this.listProductos.some(p => p.idProducto === producto.idProducto)
+        );
+        
+          console.log('productos coindientes: ',  productosCoincidentes);*/
+          //this.formGroup.get('productos')?.setValue(productosCoincidentes);
+
+          console.log('list productos2: ', this.listProductos);
+
+
         if (this.listProductos.length > 0) this.isShowTotal = true;
         this.o1 = { ...(this.formGroup.value) };
       }
@@ -158,6 +171,8 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   isFormDifferent(): boolean {
+    //console.log('form: ', this.formGroup.value);
+    //console.log('o1: ', this.o1);
     return isEqual(this.formGroup.value, this.o1);
   }
 

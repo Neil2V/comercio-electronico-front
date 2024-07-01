@@ -129,6 +129,12 @@ export class ListPedidosComponent implements OnInit {
 				title: 'Modificar'
 			},
 			disableClose: true
+		})
+		.afterClosed()
+		.subscribe(({refresh}) => {
+			if (refresh) {
+				this.initItems();
+			}
 		});
 	}
 }
