@@ -35,7 +35,15 @@
       <div class="col-6">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>Cantidad</mat-label>
-          <input type="text" class="uppercase-input" matInput (input)="onCantidadChange($event, producto)">
+          <input type="number" class="uppercase-input"  matInput (input)="onCantidadChange($event, producto)" appOnlyNumbers>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="isShowTotal" class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Total</mat-label>
+          <input type="number" class="uppercase-input" matInput [disabled]="true" formControlName="total">
         </mat-form-field>
       </div>
     </div>
@@ -43,9 +51,8 @@
   <div class="footer d-flex justify-content-between">
     <div class="col"></div>
     <div class="col d-flex justify-content-end">
-      <button mat-button (click)="guardar()" class="custom-text-color">Guardar</button>
+      <button mat-button (click)="guardar()" [disabled]="isFormDifferent()" class="custom-text-color" [ngClass]="{'custom-disabled-button': isFormDifferent()}">Guardar</button>
       <button mat-button (click)="close()" color="primary">Cancelar</button>
     </div>
-
   </div>
 </mat-dialog-content>

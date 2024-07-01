@@ -94,7 +94,7 @@ export class ListPedidosComponent implements OnInit {
 	}
 
 	deleteRow(rowNode: RowNode): void {
-		this.messageUtilService.getMessageQuestion(`¿Desea eliminar el cliente?`, '').then((res) => {
+		this.messageUtilService.getMessageQuestion(`¿Desea eliminar el pedido?`, '').then((res) => {
 			if (res.value) {
 				this.pedidosService.deletePedido(rowNode.data.id).subscribe((res) => {
 					this.toastr.success(`Pedido ${res.id} eliminado !`, 'Éxito');

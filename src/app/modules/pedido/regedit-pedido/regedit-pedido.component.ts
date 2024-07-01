@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { isEqual } from 'lodash-es';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable, combineLatest, distinctUntilChanged, forkJoin, of } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, forkJoin, of } from 'rxjs';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { PedidosService } from 'src/app/service/pedidos.service';
 import { ProductosService } from 'src/app/service/productos.service';
@@ -11,6 +12,7 @@ import { Pedido } from 'src/app/shared/model/pedido';
 import { Producto } from 'src/app/shared/model/producto';
 import { ProductoPedido } from 'src/app/shared/model/productoPedido';
 import { MessageUtilService } from 'src/app/shared/utils/message-util.service';
+
 
 @Component({
   selector: 'app-regedit-pedido',
@@ -34,6 +36,8 @@ export class RegeditPedidoComponent implements OnInit {
   pedido!: Pedido;
   title = '';
 
+  isShowTotal = false;
+
   get formGroup(): FormGroup {
     return this._formGroup;
   }
@@ -51,7 +55,6 @@ export class RegeditPedidoComponent implements OnInit {
   ) {
     this.pedido = data['data'] as unknown as Pedido;
     this.title = data['title'] as unknown as string;
-    console.log('pedido: ', this.pedido);
     this.loadData();
   }
 
@@ -65,9 +68,9 @@ export class RegeditPedidoComponent implements OnInit {
     this._formGroup = this.fb.group({
       cliente: [null, [Validators.required]],
       productos: [[], [Validators.required]],
-      listProductos: [[]],
-      total: []
+      total: [0, [Validators.required]]
     });
+    this.formGroup.get('total')?.disable();
     this.o1 = { ...(this.formGroup.value) };
   }
 
@@ -76,9 +79,8 @@ export class RegeditPedidoComponent implements OnInit {
 
     this.isDataDefault.subscribe((res) => {
       if (res) {
-
         this.formGroup.get('total')?.setValue(this.pedido.total);
-        this.formGroup.get('listProductos')?.setValue(this.pedido.productos);
+        //this.formGroup.get('listProductos')?.setValue(this.pedido.productos);
 
         this.clientes.forEach((e: Cliente) => {
           if (e.idCliente === this.pedido?.cliente?.idCliente) {
@@ -86,8 +88,6 @@ export class RegeditPedidoComponent implements OnInit {
             this._changeDetectorRef.detectChanges();
           }
         });
-
-
         this.o1 = { ...(this.formGroup.value) };
       }
     });
@@ -95,8 +95,10 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   private _valueChanges(): void {
-    this.formGroup.get('productos')?.valueChanges.pipe(distinctUntilChanged()).subscribe((res) => {
+    this.formGroup.get('productos')?.valueChanges.pipe(distinctUntilChanged()).subscribe((res: Producto[]) => {
       this.listProductos = res;
+      if (res.length > 0) this.isShowTotal = true;
+      else this.isShowTotal = false;
     });
   }
 
@@ -110,6 +112,20 @@ export class RegeditPedidoComponent implements OnInit {
     productoPedido.cantidad = Number(cantidad);
     productoPedido.categoria = producto.categoria;
     this.saveProductos.push(productoPedido);
+
+    const productos = this._listProductoSave();
+
+    let total = 0;
+
+    let showTotal = 0;
+
+    productos.forEach((e) => {
+      total += (e.cantidad ?? 1) * (e.precio ?? 1);
+    });
+
+    showTotal = total;
+
+    this.formGroup.get('total')?.setValue(showTotal);
   }
 
   loadData(): void {
@@ -124,8 +140,19 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   close(): void {
-    this.dialogRef.close();
+    if (!this.isFormDifferent()) {
+      this.messageCloseDialog();
+    }
+		else {
+      this.dialogRef.close({refresh: false});
+    }
   }
+
+  messageCloseDialog(): void {
+		this.messageUtilService.getMessageQuestion(`¿Desea cancelar el registro?`, 'Los cambios realizados no se guardarán').then((res) => {
+			if (res.value) this.dialogRef.close({refresh: false});
+		});
+	}
 
   guardar(): void {
 
@@ -142,8 +169,13 @@ export class RegeditPedidoComponent implements OnInit {
     else if (this.title == 'Modificar') this._update(pedidoSave);
   }
 
+  isFormDifferent(): boolean {
+    return isEqual(this.formGroup.value, this.o1);
+  }
+
   private _save(pedido: Pedido) {
-    if (this.formGroup.valid) {
+    const total = this.formGroup.get('total')?.value;
+    if (this.formGroup.valid && total > 0) {
       this.pedidoService.registrarPedido(pedido).subscribe((res) => {
         this.toastr.success(`Pedido registrado !`, 'Éxito');
         this.dialogRef.close({ refresh: true });
@@ -154,7 +186,8 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   private _update(pedido: Pedido) {
-    if (this.formGroup.valid) {
+    const total = this.formGroup.get('total')?.value;
+    if (this.formGroup.valid && total > 0) {
       this.pedidoService.actualizarPedido(pedido).subscribe((res) => {
         this.toastr.success(`Pedido modificado !`, 'Éxito');
         this.dialogRef.close({ refresh: true });

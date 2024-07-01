@@ -43,3 +43,9 @@
   .custom-text-color {
     color: #4caf50; /* Color verde */
   }
+
+  .custom-disabled-button {
+    color: #757575;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
