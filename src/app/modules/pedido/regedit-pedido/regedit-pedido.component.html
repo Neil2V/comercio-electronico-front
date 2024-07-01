@@ -35,7 +35,7 @@
       <div class="col-6">
         <mat-form-field appearance="fill" class="w-100">
           <mat-label>Cantidad</mat-label>
-          <input type="number" class="uppercase-input"  matInput (input)="onCantidadChange($event, producto)" appOnlyNumbers>
+          <input type="number" class="uppercase-input"  [value]="producto.cantidad" matInput (input)="onCantidadChange($event, producto)" appOnlyNumbers>
         </mat-form-field>
       </div>
     </div>

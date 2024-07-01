@@ -29,9 +29,7 @@ export class RegeditPedidoComponent implements OnInit {
 
   isDataDefault: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-
   o1 = {};
-
 
   pedido!: Pedido;
   title = '';
@@ -86,6 +84,8 @@ export class RegeditPedidoComponent implements OnInit {
             this._changeDetectorRef.detectChanges();
           }
         });
+        this.listProductos = this.pedido.productos as Producto[];
+        if (this.listProductos.length > 0) this.isShowTotal = true;
         this.o1 = { ...(this.formGroup.value) };
       }
     });
@@ -111,20 +111,7 @@ export class RegeditPedidoComponent implements OnInit {
     this.saveProductos.push(productoPedido);
 
     const productos = this._listProductoSave();
-
-    /*let total = 0;
-
-    let showTotal = 0;
-
-    productos.forEach((e) => {
-      total += (e.cantidad ?? 1) * (e.precio ?? 1);
-    });
-
-    showTotal = total;*/
-
-    //const productos = this._listProductoSave();
     let showTotal = productos.reduce((total, e) => total + ((e.cantidad ?? 1) * (e.precio ?? 1)), 0);
-
 
     this.formGroup.get('total')?.setValue(showTotal);
   }
