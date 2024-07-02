@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { isEqual } from 'lodash-es';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, distinctUntilChanged, forkJoin, of } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, forkJoin } from 'rxjs';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { PedidosService } from 'src/app/service/pedidos.service';
 import { ProductosService } from 'src/app/service/productos.service';
@@ -64,7 +64,6 @@ export class RegeditPedidoComponent implements OnInit {
 
   private _createForm(): void {
     this._formGroup = this.fb.group({
-      id: [],
       cliente: [null, [Validators.required]],
       productos: [[], [Validators.required]],
       total: [0, [Validators.required]]
@@ -92,7 +91,7 @@ export class RegeditPedidoComponent implements OnInit {
           this.listProductos.some(p => p.idProducto === producto.idProducto)
         );
 
-          this.formGroup.get('productos')?.setValue(productosFilter);
+        this.formGroup.get('productos')?.setValue(productosFilter);
 
         if (this.listProductos.length > 0) this.isShowTotal = true;
         this.o1 = { ...(this.formGroup.value) };
@@ -102,15 +101,27 @@ export class RegeditPedidoComponent implements OnInit {
 
   private _valueChanges(): void {
     this.formGroup.get('productos')?.valueChanges.pipe(distinctUntilChanged()).subscribe((res: Producto[]) => {
-      if (this.title == 'Registrar') {
-        this.listProductos = res.map((e) => ({
-          idProducto: e.idProducto,
-          nombre: e.nombre,
-          descripcion: e.descripcion,
-          categoria: e.categoria,
-          precio: e.precio
-        }));
-        this.o1 = { ...(this.formGroup.value) };
+      if (this.title == 'Modificar') {
+        const newProductos = res
+          .filter((e) => !this.listProductos.some(prod => prod.idProducto === e.idProducto))
+          .map((e) => ({
+            idProducto: e.idProducto,
+            nombre: e.nombre,
+            categoria: e.categoria,
+            precio: e.precio
+          }));
+
+        this.listProductos = this.listProductos.filter(
+          (producto) => res.some((e) => e.idProducto === producto.idProducto)
+        );
+
+        this.listProductos = [
+          ...this.listProductos,
+          ...newProductos
+        ];
+
+      } else {
+        this.listProductos = res;
       }
       if (res.length > 0) this.isShowTotal = true;
       else this.isShowTotal = false;
@@ -146,14 +157,14 @@ export class RegeditPedidoComponent implements OnInit {
   }
 
   close(): void {
-      this.dialogRef.close({refresh: false});
+    this.dialogRef.close({ refresh: false });
   }
 
   messageCloseDialog(): void {
-		this.messageUtilService.getMessageQuestion(`¿Desea cancelar el registro?`, 'Los cambios realizados no se guardarán').then((res) => {
-			if (res.value) this.dialogRef.close({refresh: false});
-		});
-	}
+    this.messageUtilService.getMessageQuestion(`¿Desea cancelar el registro?`, 'Los cambios realizados no se guardarán').then((res) => {
+      if (res.value) this.dialogRef.close({ refresh: false });
+    });
+  }
 
   guardar(): void {
 
@@ -173,7 +184,9 @@ export class RegeditPedidoComponent implements OnInit {
 
   isFormDifferent(): boolean {
     if (this.title == 'Registrar') return (isEqual(this.formGroup.value, this.o1));
-    else return (!isEqual(this.formGroup.value, this.o1));
+    else return false;
+
+    //return (isEqual(this.formGroup.value, this.o1));
   }
 
   private _save(pedido: Pedido) {
