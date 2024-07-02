@@ -77,7 +77,6 @@ export class RegeditPedidoComponent implements OnInit {
 
     this.isDataDefault.subscribe((res) => {
       if (res) {
-        this.formGroup.get('id')?.setValue(this.pedido.id);
         this.formGroup.get('total')?.setValue(this.pedido.total);
         this.clientes.forEach((e: Cliente) => {
           if (e.idCliente === this.pedido?.cliente?.idCliente) {
